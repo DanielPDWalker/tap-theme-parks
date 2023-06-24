@@ -19,11 +19,7 @@ class DestinationsStream(themeparksStream):
     records_jsonpath = "$.destinations[*]"
 
     schema = th.PropertiesList(
-        th.Property(
-            "id",
-            th.StringType,
-            description="The destination's id",
-        ),
+        th.Property("id", th.StringType),
         th.Property("name", th.StringType),
         th.Property("slug", th.StringType),
         th.Property(
