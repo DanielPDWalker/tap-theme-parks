@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "dw-tap-themeparks"
+name = "tap-themeparks"
 version = "0.0.1"
 description = "`tap-themeparks` is a Singer tap for themeparks, built with the Meltano Singer SDK."
 readme = "README.md"
