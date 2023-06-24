@@ -64,3 +64,32 @@ class entityDetailsStream(themeparksStream):
         th.Property("destinationId", th.StringType),
         th.Property("externalId", th.StringType),
     ).to_dict()
+
+
+class entityChildrenStream(themeparksStream):
+    """Define entity children stream"""
+
+    parent_stream_type = DestinationsStream
+    name = "entity_children"
+    path = "/entity/{entity_id}/children"
+    primary_keys = ["id"]
+    replication_key = None
+
+    schema = th.PropertiesList(
+        th.Property("id", th.StringType),
+        th.Property("name", th.StringType),
+        th.Property("entityType", th.StringType),
+        th.Property("timezone", th.StringType),
+        th.Property(
+            "children",
+            th.ArrayType(
+                th.ObjectType(
+                    th.Property("id", th.StringType),
+                    th.Property("name", th.StringType),
+                    th.Property("entityType", th.StringType),
+                    th.Property("slug", th.StringType),
+                    th.Property("externalId", th.StringType),
+                )
+            ),
+        ),
+    ).to_dict()
