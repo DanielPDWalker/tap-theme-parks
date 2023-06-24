@@ -31,3 +31,36 @@ class DestinationsStream(themeparksStream):
             ),
         ),
     ).to_dict()
+
+    def get_child_context(self, record: dict, context: Optional[dict]) -> dict:
+        """Return a context dictionary for child streams."""
+        return {"entity_id": record["id"]}
+
+
+class entityDetailsStream(themeparksStream):
+    """Define entity details stream"""
+
+    parent_stream_type = DestinationsStream
+    name = "entity_detail"
+    path = "/entity/{entity_id}"
+    primary_keys = ["id"]
+    replication_key = None
+
+    schema = th.PropertiesList(
+        th.Property("id", th.StringType),
+        th.Property("name", th.StringType),
+        th.Property("slug", th.StringType),
+        th.Property(
+            "location",
+            th.ObjectType(
+                th.Property("latitude", th.NumberType),
+                th.Property("longitude", th.NumberType),
+                th.Property("pointOfInterest", th.ArrayType(th.StringType)),
+            ),
+        ),
+        th.Property("parentId", th.StringType),
+        th.Property("timezone", th.StringType),
+        th.Property("entityType", th.StringType),
+        th.Property("destinationId", th.StringType),
+        th.Property("externalId", th.StringType),
+    ).to_dict()
