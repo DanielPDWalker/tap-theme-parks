@@ -20,4 +20,4 @@ class themeparksStream(RESTStream):
     @property
     def url_base(self) -> str:
         """Return the API URL root, configurable via tap settings."""
-        return "https://api.themeparks.wiki/v1/"
+        return "https://api.themeparks.wiki/v1"
