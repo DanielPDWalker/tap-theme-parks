@@ -16,7 +16,7 @@ class Tapthemeparks(Tap):
 
     # TODO: Update this section with the actual config values you expect:
     config_jsonschema = th.PropertiesList(
-        th.Property("live_data_id", th.StringType),
+        th.Property("live_data_array", th.ArrayType(th.StringType)),
     ).to_dict()
 
     def discover_streams(self) -> list[streams.themeparksStream]:
@@ -31,7 +31,8 @@ class Tapthemeparks(Tap):
             streams.DestinationChildrenStream(self),
         ]
 
-        if self.config.get("live_data_id"):
+        if self.config.get("live_data_array"):
+            selected_streams.append(streams.LiveDataParentStream(self))
             selected_streams.append(streams.LiveDataStream(self))
 
         return selected_streams

@@ -16,7 +16,8 @@ plugins:
     - about
     - stream-maps
     settings:
-    - name: live_data_id
+    - name: live_data_array
+      kind: array
     config:
       start_date: '2010-01-01T00:00:00Z'
   loaders:
