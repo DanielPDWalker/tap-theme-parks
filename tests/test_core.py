@@ -4,7 +4,7 @@ import datetime
 
 from singer_sdk.testing import get_tap_test_class
 
-from tap_themeparks.tap import Tapthemeparks
+from tap_theme_parks.tap import TapThemeParks
 
 SAMPLE_CONFIG = {
     "start_date": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d"),
@@ -13,8 +13,8 @@ SAMPLE_CONFIG = {
 
 
 # Run standard built-in tap tests from the SDK:
-TestTapthemeparks = get_tap_test_class(
-    tap_class=Tapthemeparks,
+TestTapThemeParks = get_tap_test_class(
+    tap_class=TapThemeParks,
     config=SAMPLE_CONFIG,
 )
 

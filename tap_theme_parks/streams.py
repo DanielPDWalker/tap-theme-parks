@@ -1,13 +1,13 @@
-"""Stream type classes for tap-themeparks."""
+"""Stream type classes for tap-theme-parks."""
 
 from __future__ import annotations
 
 from singer_sdk import typing as th  # JSON Schema typing helpers
 
-from tap_themeparks.client import themeparksStream
+from tap_theme_parks.client import ThemeParksStream
 
 
-class DestinationsStream(themeparksStream):
+class DestinationsStream(ThemeParksStream):
     """Define destinations stream"""
 
     name = "destinations"
@@ -35,7 +35,7 @@ class DestinationsStream(themeparksStream):
         return {"entity_id": record["id"]}
 
 
-class DestinationDetailsStream(themeparksStream):
+class DestinationDetailsStream(ThemeParksStream):
     """Define destination details stream"""
 
     parent_stream_type = DestinationsStream
@@ -64,7 +64,7 @@ class DestinationDetailsStream(themeparksStream):
     ).to_dict()
 
 
-class DestinationChildrenStream(themeparksStream):
+class DestinationChildrenStream(ThemeParksStream):
     """Define destination children stream"""
 
     parent_stream_type = DestinationsStream
@@ -93,7 +93,7 @@ class DestinationChildrenStream(themeparksStream):
     ).to_dict()
 
 
-class LiveDataParentStream(themeparksStream):
+class LiveDataParentStream(ThemeParksStream):
     """Live data parent stream, used to pass user supplied ids from config to the LiveDataStream"""
 
     name = "live_data_parent_stream"
@@ -111,7 +111,7 @@ class LiveDataParentStream(themeparksStream):
         return {"live_data_id": record["id"]}
 
 
-class LiveDataStream(themeparksStream):
+class LiveDataStream(ThemeParksStream):
     """Define live data stream"""
 
     parent_stream_type = LiveDataParentStream

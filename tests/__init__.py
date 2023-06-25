@@ -1,1 +1,1 @@
-"""Test suite for tap-themeparks."""
+"""Test suite for tap-theme-parks."""

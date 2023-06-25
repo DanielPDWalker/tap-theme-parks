@@ -1,16 +1,16 @@
 [tool.poetry]
-name = "tap-themeparks"
+name = "tap-theme-parks"
 version = "0.0.1"
-description = "`tap-themeparks` is a Singer tap for themeparks, built with the Meltano Singer SDK."
+description = "`tap-theme-parks` is a Singer tap for theme parks, built with the Meltano Singer SDK."
 readme = "README.md"
 authors = ["Daniel Walker"]
 keywords = [
     "ELT",
-    "themeparks",
+    "theme parks",
 ]
 license = "Apache-2.0"
 packages = [
-    { include = "tap_themeparks" },
+    { include = "tap_theme_parks" },
 ]
 
 [tool.poetry.dependencies]
@@ -36,7 +36,7 @@ ignore = [
     "ANN102",  # missing-type-cls
 ]
 select = ["ALL"]
-src = ["tap_themeparks"]
+src = ["tap_theme_parks"]
 target-version = "py37"
 
 
@@ -44,7 +44,7 @@ target-version = "py37"
 allow-star-arg-any = true
 
 [tool.ruff.isort]
-known-first-party = ["tap_themeparks"]
+known-first-party = ["tap_theme_parks"]
 
 [tool.ruff.pydocstyle]
 convention = "google"
@@ -55,4 +55,4 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
 # CLI declaration
-tap-themeparks = 'tap_themeparks.tap:Tapthemeparks.cli'
+tap-theme-parks = 'tap_theme_parks.tap:TapThemeParks.cli'

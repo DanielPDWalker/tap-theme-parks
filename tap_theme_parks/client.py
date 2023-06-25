@@ -1,4 +1,4 @@
-"""REST client handling, including themeparksStream base class."""
+"""REST client handling, including ThemeParksStream base class."""
 
 from __future__ import annotations
 
@@ -14,8 +14,8 @@ _Auth = Callable[[requests.PreparedRequest], requests.PreparedRequest]
 SCHEMAS_DIR = Path(__file__).parent / Path("./schemas")
 
 
-class themeparksStream(RESTStream):
-    """themeparks stream class."""
+class ThemeParksStream(RESTStream):
+    """Theme parks stream class."""
 
     @property
     def url_base(self) -> str:

@@ -1,13 +1,13 @@
 version: 1
 send_anonymous_usage_stats: true
-project_id: tap-themeparks
+project_id: tap-theme-parks
 default_environment: test
 environments:
 - name: test
 plugins:
   extractors:
-  - name: tap-themeparks
-    namespace: tap_themeparks
+  - name: tap-theme-parks
+    namespace: tap_theme_parks
     pip_url: -e .
     capabilities:
     - state
