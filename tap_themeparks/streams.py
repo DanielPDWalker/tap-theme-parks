@@ -91,3 +91,86 @@ class DestinationChildrenStream(themeparksStream):
             ),
         ),
     ).to_dict()
+
+
+class LiveDataStream(themeparksStream):
+    """Define live data stream"""
+
+    name = "live_data"
+    path = "/entity/{live_data_id}/live"
+    primary_keys = ["id"]
+    replication_key = None
+
+    schema = th.PropertiesList(
+        th.Property("id", th.StringType),
+        th.Property("name", th.StringType),
+        th.Property("entityType", th.StringType),
+        th.Property("timezone", th.StringType),
+        th.Property(
+            "liveData",
+            th.ArrayType(
+                th.ObjectType(
+                    th.Property("id", th.StringType),
+                    th.Property("name", th.StringType),
+                    th.Property("entityType", th.StringType),
+                    th.Property("status", th.StringType),
+                    th.Property("lastUpdated", th.DateTimeType),
+                    th.Property(
+                        "queue",
+                        th.ObjectType(
+                            th.Property(
+                                "STANDBY",
+                                th.ObjectType(
+                                    th.Property("waitTime", th.NumberType),
+                                ),
+                            ),
+                            th.Property(
+                                "SINGLE_RIDER",
+                                th.ObjectType(
+                                    th.Property("waitTime", th.NumberType),
+                                ),
+                            ),
+                            th.Property(
+                                "RETURN_TIME",
+                                th.ObjectType(
+                                    th.Property("state", th.StringType),
+                                    th.Property("returnStart", th.DateTimeType),
+                                    th.Property("returnEnd", th.DateTimeType),
+                                ),
+                            ),
+                            th.Property(
+                                "PAID_RETURN_TIME",
+                                th.ObjectType(
+                                    th.Property("allocationStatus", th.StringType),
+                                    th.Property("currentGroupStart", th.DateTimeType),
+                                    th.Property("currentGroupEnd", th.DateTimeType),
+                                    th.Property("nextAllocationTime", th.DateTimeType),
+                                    th.Property("estimatedWait", th.NumberType),
+                                ),
+                            ),
+                        ),
+                    ),
+                    th.Property(
+                        "showTimes",
+                        th.ArrayType(
+                            th.ObjectType(
+                                th.Property("type", th.StringType),
+                                th.Property("startTime", th.DateTimeType),
+                                th.Property("endTime", th.DateTimeType),
+                            )
+                        ),
+                    ),
+                    th.Property(
+                        "operatingHours",
+                        th.ArrayType(
+                            th.ObjectType(
+                                th.Property("type", th.StringType),
+                                th.Property("startTime", th.DateTimeType),
+                                th.Property("endTime", th.DateTimeType),
+                            )
+                        ),
+                    ),
+                ),
+            ),
+        ),
+    ).to_dict()
