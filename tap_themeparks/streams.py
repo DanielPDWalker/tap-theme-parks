@@ -93,9 +93,28 @@ class DestinationChildrenStream(themeparksStream):
     ).to_dict()
 
 
+class LiveDataParentStream(themeparksStream):
+    """Live data parent stream, used to pass user supplied ids from config to the LiveDataStream"""
+
+    name = "live_data_parent_stream"
+    primary_keys = ["id"]
+
+    schema = th.PropertiesList(th.Property("id", th.StringType)).to_dict()
+
+    def get_records(self, context: Optional[Dict]) -> Iterable[Dict[str, Any]]:
+        """Return a generator of record-type dictionary objects from config"""
+        for id in self.config.get("live_data_array"):
+            yield {"id": id}
+
+    def get_child_context(self, record: dict, context: Optional[dict]) -> dict:
+        """Return a context dictionary for child streams."""
+        return {"live_data_id": record["id"]}
+
+
 class LiveDataStream(themeparksStream):
     """Define live data stream"""
 
+    parent_stream_type = LiveDataParentStream
     name = "live_data"
     path = "/entity/{live_data_id}/live"
     primary_keys = ["id"]
