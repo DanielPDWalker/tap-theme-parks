@@ -25,8 +25,8 @@ class Tapthemeparks(Tap):
         """
         return [
             streams.DestinationsStream(self),
-            streams.entityDetailsStream(self),
-            streams.entityChildrenStream(self),
+            streams.DestinationDetailsStream(self),
+            streams.DestinationChildrenStream(self),
         ]
 
 

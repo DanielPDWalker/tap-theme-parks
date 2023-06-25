@@ -35,11 +35,11 @@ class DestinationsStream(themeparksStream):
         return {"entity_id": record["id"]}
 
 
-class entityDetailsStream(themeparksStream):
-    """Define entity details stream"""
+class DestinationDetailsStream(themeparksStream):
+    """Define destination details stream"""
 
     parent_stream_type = DestinationsStream
-    name = "entity_detail"
+    name = "destination_detail"
     path = "/entity/{entity_id}"
     primary_keys = ["id"]
     replication_key = None
@@ -64,11 +64,11 @@ class entityDetailsStream(themeparksStream):
     ).to_dict()
 
 
-class entityChildrenStream(themeparksStream):
-    """Define entity children stream"""
+class DestinationChildrenStream(themeparksStream):
+    """Define destination children stream"""
 
     parent_stream_type = DestinationsStream
-    name = "entity_children"
+    name = "destination_children"
     path = "/entity/{entity_id}/children"
     primary_keys = ["id"]
     replication_key = None
