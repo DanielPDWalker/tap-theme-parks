@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-from pathlib import Path
-
 from singer_sdk import typing as th  # JSON Schema typing helpers
 
 from tap_themeparks.client import themeparksStream
