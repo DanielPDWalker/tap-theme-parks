@@ -1,20 +1,14 @@
-# tap-themeparks
+# tap-theme-parks
 
-`tap-themeparks` is a Singer tap for themeparks.
+[![test](https://github.com/DanielPDWalker/tap-theme-parks/actions/workflows/test.yml/badge.svg)](https://github.com/DanielPDWalker/tap-theme-parks/actions/workflows/test.yml)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+<a href="https://github.com/DanielPDWalker/tap-theme-parks/master/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/DanielPDWalker/tap-theme-parks"></a>
+[![Python](https://img.shields.io/static/v1?logo=python&label=python&message=3.7%20|%203.8%20|%203.9&color=blue)]()
 
-Built with the [Meltano Tap SDK](https://sdk.meltano.com) for Singer Taps.
+`tap-theme-parks` is a Singer tap for theme park data from [themeparks.wiki](https://themeparks.wiki/) API, built with the [Meltano Tap SDK](https://sdk.meltano.com) for Singer Taps.
 
-<!--
-
-Developer TODO: Update the below as needed to correctly describe the install procedure. For instance, if you do not have a PyPi repo, or if you want users to directly install from your git repo, you can modify this step as appropriate.
 
 ## Installation
-
-Install from PyPi:
-
-```bash
-pipx install tap-themeparks
-```
 
 Install from GitHub:
 
@@ -22,21 +16,22 @@ Install from GitHub:
 pipx install git+https://github.com/ORG_NAME/tap-themeparks.git@main
 ```
 
--->
+or add as a custom plugin to a Meltano project: https://docs.meltano.com/concepts/plugins#custom-plugins
+
 
 ## Configuration
 
+There are no required settings for `tap-theme-parks`, only optional settings to get specific data.
+
+### Settings
+
+Setting | Required | Type | Description | Environment Variable |
+------- | -------- | ---- | ----------- | -------------------- |
+`live_data_array` | Optional | Array of String | An array of id or slugs (can be found from the `destinations` data) that you want to get live data for. This can include queue times, show times and operating hours. | `TAP_THEME_PARKS_LIVE_DATA_ARRAY`
+
+**Note that you enable the live data streams by supplying this setting.**
+
 ### Accepted Config Options
-
-<!--
-Developer TODO: Provide a list of config options accepted by the tap.
-
-This section can be created by copy-pasting the CLI output from:
-
-```
-tap-themeparks --about --format=markdown
-```
--->
 
 A full list of supported settings and capabilities for this
 tap is available by running:
@@ -51,12 +46,6 @@ This Singer tap will automatically import any environment variables within the w
 `.env` if the `--config=ENV` is provided, such that config values will be considered if a matching
 environment variable is set either in the terminal context or in the `.env` file.
 
-### Source Authentication and Authorization
-
-<!--
-Developer TODO: If your tap requires special access on the source system, or any special authentication requirements, provide those here.
--->
-
 ## Usage
 
 You can easily run `tap-themeparks` by itself or in a pipeline using [Meltano](https://meltano.com/).
@@ -68,6 +57,8 @@ tap-themeparks --version
 tap-themeparks --help
 tap-themeparks --config CONFIG --discover > ./catalog.json
 ```
+
+---
 
 ## Developer Resources
 
