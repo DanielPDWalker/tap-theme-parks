@@ -10,13 +10,17 @@
 
 ## Installation
 
-Install from GitHub:
+Add directly to your Meltano project from the Meltano Hub:
+
+```bash
+meltano add extractor tap-theme-parks
+```
+
+Or install from GitHub:
 
 ```bash
 pipx install git+https://github.com/ORG_NAME/tap-themeparks.git@main
 ```
-
-or add as a custom plugin to a Meltano project: https://docs.meltano.com/concepts/plugins#custom-plugins
 
 
 ## Configuration
