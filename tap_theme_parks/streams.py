@@ -32,7 +32,75 @@ class DestinationsStream(ThemeParksStream):
 
     def get_child_context(self, record: dict, context: Optional[dict]) -> dict:
         """Return a context dictionary for child streams."""
-        return {"entity_id": record["id"]}
+        return {
+            "destination_id": record["id"],
+            "park_ids": [x["id"] for x in record["parks"]],
+        }
+
+
+class ParkDetailsStream(ThemeParksStream):
+    """Define park details stream"""
+
+    parent_stream_type = DestinationsStream
+    name = "park_detail"
+    path_template = "/entity/{park_id}"
+    primary_keys = ["id"]
+    replication_key = None
+
+    schema = th.PropertiesList(
+        th.Property("id", th.StringType),
+        th.Property("name", th.StringType),
+        th.Property("slug", th.StringType),
+        th.Property(
+            "location",
+            th.ObjectType(
+                th.Property("latitude", th.NumberType),
+                th.Property("longitude", th.NumberType),
+                th.Property("pointOfInterest", th.ArrayType(th.StringType)),
+            ),
+        ),
+        th.Property("parentId", th.StringType),
+        th.Property("timezone", th.StringType),
+        th.Property("entityType", th.StringType),
+        th.Property("destinationId", th.StringType),
+        th.Property("externalId", th.StringType),
+    ).to_dict()
+
+    def request_records(self, context: dict | None) -> Iterable[dict]:
+        for id in context["park_ids"]:
+            self.path = self.path_template.format(park_id=id)
+            yield from super().request_records(context)
+
+    def get_child_context(self, record: dict, context: Optional[dict]) -> dict:
+        """Return a context dictionary for child streams."""
+        return {"park_id": record["id"]}
+
+
+class ParkChildrenStream(ThemeParksStream):
+    """Define park children stream"""
+
+    parent_stream_type = ParkDetailsStream
+    name = "park_children"
+    path = "/entity/{park_id}/children"
+    primary_keys = ["id"]
+    replication_key = None
+
+    schema = th.PropertiesList(
+        th.Property("id", th.StringType),
+        th.Property("name", th.StringType),
+        th.Property("entityType", th.StringType),
+        th.Property("timezone", th.StringType),
+        th.Property(
+            "children",
+            th.ObjectType(
+                th.Property("id", th.StringType),
+                th.Property("name", th.StringType),
+                th.Property("entityType", th.StringType),
+                th.Property("slug", th.StringType),
+                th.Property("externalId", th.StringType),
+            ),
+        ),
+    ).to_dict()
 
 
 class DestinationDetailsStream(ThemeParksStream):
@@ -40,7 +108,7 @@ class DestinationDetailsStream(ThemeParksStream):
 
     parent_stream_type = DestinationsStream
     name = "destination_detail"
-    path = "/entity/{entity_id}"
+    path = "/entity/{destination_id}"
     primary_keys = ["id"]
     replication_key = None
 
@@ -69,7 +137,7 @@ class DestinationChildrenStream(ThemeParksStream):
 
     parent_stream_type = DestinationsStream
     name = "destination_children"
-    path = "/entity/{entity_id}/children"
+    path = "/entity/{destination_id}/children"
     primary_keys = ["id"]
     replication_key = None
 
@@ -93,30 +161,11 @@ class DestinationChildrenStream(ThemeParksStream):
     ).to_dict()
 
 
-class LiveDataParentStream(ThemeParksStream):
-    """Live data parent stream, used to pass user supplied ids from config to the LiveDataStream"""
-
-    name = "live_data_parent_stream"
-    primary_keys = ["id"]
-
-    schema = th.PropertiesList(th.Property("id", th.StringType)).to_dict()
-
-    def get_records(self, context: Optional[Dict]) -> Iterable[Dict[str, Any]]:
-        """Return a generator of record-type dictionary objects from config"""
-        for id in self.config.get("live_data_array"):
-            yield {"id": id}
-
-    def get_child_context(self, record: dict, context: Optional[dict]) -> dict:
-        """Return a context dictionary for child streams."""
-        return {"live_data_id": record["id"]}
-
-
 class LiveDataStream(ThemeParksStream):
     """Define live data stream"""
 
-    parent_stream_type = LiveDataParentStream
     name = "live_data"
-    path = "/entity/{live_data_id}/live"
+    path_template = "/entity/{live_data_id}/live"
     primary_keys = ["id"]
     replication_key = None
 
@@ -193,3 +242,8 @@ class LiveDataStream(ThemeParksStream):
             ),
         ),
     ).to_dict()
+
+    def request_records(self, context: dict | None) -> Iterable[dict]:
+        for id in self.config.get("live_data_array", []):
+            self.path = self.path_template.format(live_data_id=id)
+            yield from super().request_records(context)

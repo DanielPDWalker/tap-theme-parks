@@ -27,10 +27,11 @@ class TapThemeParks(Tap):
             streams.DestinationsStream(self),
             streams.DestinationDetailsStream(self),
             streams.DestinationChildrenStream(self),
+            streams.ParkDetailsStream(self),
+            streams.ParkChildrenStream(self),
         ]
 
         if self.config.get("live_data_array"):
-            selected_streams.append(streams.LiveDataParentStream(self))
             selected_streams.append(streams.LiveDataStream(self))
 
         return selected_streams
