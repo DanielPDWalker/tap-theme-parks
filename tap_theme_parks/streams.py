@@ -92,12 +92,14 @@ class ParkChildrenStream(ThemeParksStream):
         th.Property("timezone", th.StringType),
         th.Property(
             "children",
-            th.ObjectType(
-                th.Property("id", th.StringType),
-                th.Property("name", th.StringType),
-                th.Property("entityType", th.StringType),
-                th.Property("slug", th.StringType),
-                th.Property("externalId", th.StringType),
+            th.ArrayType(
+                th.ObjectType(
+                    th.Property("id", th.StringType),
+                    th.Property("name", th.StringType),
+                    th.Property("entityType", th.StringType),
+                    th.Property("slug", th.StringType),
+                    th.Property("externalId", th.StringType),
+                )
             ),
         ),
     ).to_dict()
