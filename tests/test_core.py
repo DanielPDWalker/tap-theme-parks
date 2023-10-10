@@ -24,13 +24,13 @@ class TestEnabledStreams(unittest.TestCase):
     def test_default_streams(self):
         catalog = TapThemeParks().discover_streams()
 
-        self.assertEqual(len(catalog), 3, "Expected 3 streams from catalog by default")
+        self.assertEqual(len(catalog), 5, "Expected 5 streams from catalog by default")
 
     def test_streams_with_live_data_array(self):
         catalog = TapThemeParks(config=SAMPLE_CONFIG).discover_streams()
 
         self.assertEqual(
             len(catalog),
-            5,
-            "Expected 5 streams from catalog with the live_data_array setting provided",
+            6,
+            "Expected 6 streams from catalog with the live_data_array setting provided",
         )
