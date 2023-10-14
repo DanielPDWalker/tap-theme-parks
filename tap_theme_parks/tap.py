@@ -24,10 +24,10 @@ class TapThemeParks(Tap):
             A list of discovered streams.
         """
         selected_streams = [
-            streams.DestinationsStream(self),
-            streams.DestinationDetailsStream(self),
+            streams.DestinationStream(self),
+            streams.DestinationDetailStream(self),
             streams.DestinationChildrenStream(self),
-            streams.ParkDetailsStream(self),
+            streams.ParkDetailStream(self),
             streams.ParkChildrenStream(self),
         ]
 

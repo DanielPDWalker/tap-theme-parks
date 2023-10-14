@@ -7,10 +7,10 @@ from singer_sdk import typing as th  # JSON Schema typing helpers
 from tap_theme_parks.client import ThemeParksStream
 
 
-class DestinationsStream(ThemeParksStream):
-    """Define destinations stream"""
+class DestinationStream(ThemeParksStream):
+    """Define destination stream"""
 
-    name = "destinations"
+    name = "destination"
     path = "/destinations"
     primary_keys = ["id"]
     replication_key = None
@@ -38,10 +38,10 @@ class DestinationsStream(ThemeParksStream):
         }
 
 
-class ParkDetailsStream(ThemeParksStream):
-    """Define park details stream"""
+class ParkDetailStream(ThemeParksStream):
+    """Define park detail stream"""
 
-    parent_stream_type = DestinationsStream
+    parent_stream_type = DestinationStream
     name = "park_detail"
     path_template = "/entity/{park_id}"
     primary_keys = ["id"]
@@ -79,7 +79,7 @@ class ParkDetailsStream(ThemeParksStream):
 class ParkChildrenStream(ThemeParksStream):
     """Define park children stream"""
 
-    parent_stream_type = ParkDetailsStream
+    parent_stream_type = ParkDetailStream
     name = "park_children"
     path = "/entity/{park_id}/children"
     primary_keys = ["id"]
@@ -105,10 +105,10 @@ class ParkChildrenStream(ThemeParksStream):
     ).to_dict()
 
 
-class DestinationDetailsStream(ThemeParksStream):
-    """Define destination details stream"""
+class DestinationDetailStream(ThemeParksStream):
+    """Define destination detail stream"""
 
-    parent_stream_type = DestinationsStream
+    parent_stream_type = DestinationStream
     name = "destination_detail"
     path = "/entity/{destination_id}"
     primary_keys = ["id"]
@@ -137,7 +137,7 @@ class DestinationDetailsStream(ThemeParksStream):
 class DestinationChildrenStream(ThemeParksStream):
     """Define destination children stream"""
 
-    parent_stream_type = DestinationsStream
+    parent_stream_type = DestinationStream
     name = "destination_children"
     path = "/entity/{destination_id}/children"
     primary_keys = ["id"]
