@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "tap-theme-parks"
-version = "0.0.4"
+version = "0.0.5"
 description = "`tap-theme-parks` is a Singer tap for theme parks, built with the Meltano Singer SDK."
 readme = "README.md"
 authors = ["Daniel Walker"]
