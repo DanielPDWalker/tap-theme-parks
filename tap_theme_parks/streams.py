@@ -249,3 +249,37 @@ class LiveDataStream(ThemeParksStream):
         for id in self.config.get("live_data_array", []):
             self.path = self.path_template.format(live_data_id=id)
             yield from super().request_records(context)
+
+
+class DestinationOverrideStream(ThemeParksStream):
+    """Define destination override stream"""
+
+    name = "destination_children"
+    path_template = "/entity/{destination_id}/children"
+    primary_keys = ["id"]
+    replication_key = None
+
+    schema = th.PropertiesList(
+        th.Property("id", th.StringType),
+        th.Property("name", th.StringType),
+        th.Property("entityType", th.StringType),
+        th.Property("timezone", th.StringType),
+        th.Property(
+            "children",
+            th.ArrayType(
+                th.ObjectType(
+                    th.Property("id", th.StringType),
+                    th.Property("name", th.StringType),
+                    th.Property("entityType", th.StringType),
+                    th.Property("slug", th.StringType),
+                    th.Property("externalId", th.StringType),
+                )
+            ),
+        ),
+    ).to_dict()
+
+
+    def request_records(self, context: dict | None) -> Iterable[dict]:
+        destination_id = self.config.get("destination_override")
+        self.path = self.path_template.format(destination_id=destination_id)
+        yield from super().request_records(context)

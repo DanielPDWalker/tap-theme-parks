@@ -15,6 +15,7 @@ class TapThemeParks(Tap):
 
     config_jsonschema = th.PropertiesList(
         th.Property("live_data_array", th.ArrayType(th.StringType)),
+        th.Property("destination_override",  th.StringType),
     ).to_dict()
 
     def discover_streams(self) -> list[streams.ThemeParksStream]:
@@ -33,6 +34,11 @@ class TapThemeParks(Tap):
 
         if self.config.get("live_data_array"):
             selected_streams.append(streams.LiveDataStream(self))
+
+        if self.config.get("destination_override"):
+            selected_streams = [
+                streams.DestinationOverrideStream(self)
+            ]
 
         return selected_streams
 
