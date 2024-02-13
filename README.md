@@ -2,7 +2,7 @@
 
 [![test](https://github.com/DanielPDWalker/tap-theme-parks/actions/workflows/test.yml/badge.svg)](https://github.com/DanielPDWalker/tap-theme-parks/actions/workflows/test.yml)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-<a href="https://github.com/DanielPDWalker/tap-theme-parks/master/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/DanielPDWalker/tap-theme-parks"></a>
+[![GitHub License](https://img.shields.io/github/license/DanielPDWalker/tap-theme-parks)](https://github.com/DanielPDWalker/tap-theme-parks/blob/main/LICENSE)
 [![Python](https://img.shields.io/static/v1?logo=python&label=python&message=3.7%20|%203.8%20|%203.9%20|%203.10%20|%203.11&color=blue)]()
 
 `tap-theme-parks` is a Singer tap for theme park data from [themeparks.wiki](https://themeparks.wiki/) API, built with the [Meltano Tap SDK](https://sdk.meltano.com) for Singer Taps.
